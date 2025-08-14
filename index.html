@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMind Pro - Advanced Cognitive Health Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        :root {
+            /* Enhanced Color Palette with Better Readability */
+            --primary-blue: #2563eb;
+            --primary-teal: #059669;
+            --primary-purple: #7c3aed;
+            --accent-orange: #f59e0b;
+            
+            /* Text Colors */
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-white: #ffffff;
+            --text-light: #f9fafb;
+            
+            /* Background Colors */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-dark: #1e293b;
+            --bg-darker: #0f172a;
+            
+            /* Glass Effects */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-dark: rgba(15, 23, 42, 0.8);
+            
+            /* Subtle Gradients */
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-secondary: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, #1e293b 50%, #334155 100%);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Background Elements */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--glass-dark);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 50px;
+            padding: 0.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-white);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-button:hover {
+            background: var(--glass-bg);
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+            transform: translateY(-2px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-button.active::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-primary);
+            border-radius: 27px;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.7;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards and Containers */
+        .glass-card {
+            background: var(--glass-dark);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fa88056c228e347a1a348b70690e8196c?format=webp&width=800') center/cover;
+            border-radius: 20px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-large);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--glass-dark);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-white);
+            border: 2px solid var(--glass-border);
+        }
+
+        .btn-outline:hover {
+            background: var(--glass-bg);
+        }
+
+        /* Activity Cards */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .activity-card {
+            background: var(--glass-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .activity-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .activity-content {
+            padding: 1.5rem;
+        }
+
+        .activity-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .activity-description {
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Progress Elements */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--glass-dark);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--glass-dark);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            color: var(--text-white);
+            box-shadow: var(--shadow-large);
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            z-index: 1001;
+            min-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* EEG Monitoring Section */
+        .eeg-section {
+            background: var(--glass-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fb4b9263111d0439abc970baab0d96960?format=webp&width=800');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+
+        .quantum-lab-section {
+            background: var(--glass-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F4a081ca0657f4a668b85667c14c43779?format=webp&width=800');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--glass-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        /* Focus Timer */
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--glass-bg);
+            position: relative;
+        }
+
+        /* Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .game-card {
+            background: var(--glass-dark);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        /* Two column layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                padding: 0 1rem;
+                height: auto;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-content {
+                margin-top: 140px;
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .activity-grid,
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-purple);
+        }
+
+        /* Image overlays for better text readability */
+        .image-overlay {
+            position: relative;
+            background-blend-mode: overlay;
+        }
+
+        .image-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: inherit;
+        }
+
+        .image-overlay > * {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-container"></div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="logo-section">
+            <div class="status-indicator">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="logo">NeuroMind Pro</div>
+        </div>
+        
+        <div class="nav-menu">
+            <button class="nav-button active" onclick="showPage('home')" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-button" onclick="showPage('dashboard')" data-page="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-button" onclick="showPage('training')" data-page="training">
+                <i class="fas fa-dumbbell"></i>
+                <span>Training</span>
+            </button>
+            <button class="nav-button" onclick="showPage('meditation')" data-page="meditation">
+                <i class="fas fa-leaf"></i>
+                <span>Meditation</span>
+            </button>
+            <button class="nav-button" onclick="showPage('research')" data-page="research">
+                <i class="fas fa-microscope"></i>
+                <span>Research</span>
+            </button>
+            <button class="nav-button" onclick="showPage('consultation')" data-page="consultation">
+                <i class="fas fa-user-md"></i>
+                <span>Consultation</span>
+            </button>
+        </div>
+        
+        <div class="user-profile">
+            <div style="text-align: right;">
+                <div style="font-weight: 600;">Alex Johnson</div>
+                <div style="font-size: 0.8rem; opacity: 0.7;">Patient</div>
+            </div>
+            <img src="https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fa7beb5848a4f45ad817357189c7678cc?format=webp&width=800" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <div class="hero-section">
+                <h1 class="hero-title">NeuroMind Pro</h1>
+                <p class="hero-subtitle">Advanced Cognitive Health & Research Platform</p>
+                
+                <div class="hero-image image-overlay" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F960c79f08d0e4c2e8a40553f9e409ef9?format=webp&width=800');"></div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeSessions">2,847</div>
+                        <div class="stat-label">Active Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="researchStudies">156</div>
+                        <div class="stat-label">Research Studies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="cognitiveScore">94</div>
+                        <div class="stat-label">Avg. Cognitive Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="patientProgress">87%</div>
+                        <div class="stat-label">Patient Progress</div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="text-align: left; margin-top: 3rem;">
+                    <h3 style="color: var(--text-white); margin-bottom: 1rem;">🧠 Today's Insights</h3>
+                    <div style="background: var(--glass-bg); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <p id="dailyInsight">Cognitive performance indicators show optimal patterns. Memory enhancement protocols are showing 23% improvement in patient outcomes this week.</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="startAssessment()">
+                            <i class="fas fa-brain"></i>
+                            Start Assessment
+                        </button>
+                        <button class="btn btn-secondary" onclick="showPage('training')">
+                            <i class="fas fa-play"></i>
+                            Training Modules
+                        </button>
+                        <button class="btn btn-accent" onclick="showPage('research')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page" id="dashboard">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--text-white);">
+                📊 Cognitive Health Dashboard
+            </h2>
+
+            <div class="two-column">
+                <div class="chart-container">
+                    <h3 class="chart-title">📈 Performance Analytics</h3>
+                    <canvas id="performanceChart" width="400" height="300"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3 class="chart-title">🧠 Quantum Neural Monitoring</h3>
+                    <div class="quantum-lab-section image-overlay">
+                        <div style="padding: 2rem;">
+                            <h4 style="color: var(--text-white); margin-bottom: 1rem;">Advanced Brain Activity Analysis</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                <div style="text-align: center;">
+                                    <div class="stat-number" style="font-size: 1.8rem;" id="alphaWaves">12.4</div>
+                                    <div class="stat-label">Alpha (Hz)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="stat-number" style="font-size: 1.8rem;" id="betaWaves">18.7</div>
+                                    <div class="stat-label">Beta (Hz)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="stat-number" style="font-size: 1.8rem;" id="gammaWaves">42.3</div>
+                                    <div class="stat-label">Gamma (Hz)</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="startBrainScan()" style="width: 100%; margin-top: 1.5rem;">
+                                <i class="fas fa-brain"></i>
+                                Start Quantum Brain Scan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin: 2rem 0;">
+                <h3 style="color: var(--text-white); margin-bottom: 2rem;">🔬 Cognitive Metrics</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;" id="focusLevel">87</div>
+                        <div class="stat-label">Focus Level (%)</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;" id="memoryScore">91</div>
+                        <div class="stat-label">Memory Score</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;" id="reactionTime">245</div>
+                        <div class="stat-label">Reaction Time (ms)</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;" id="cognitiveLoad">73</div>
+                        <div class="stat-label">Cognitive Load</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="runFullScan()" style="width: 100%; margin-top: 2rem;">
+                    <i class="fas fa-brain"></i>
+                    Run Full Cognitive Scan
+                </button>
+            </div>
+        </div>
+
+        <!-- Training Page -->
+        <div class="page" id="training">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--text-white);">
+                🏋️ Cognitive Training Center
+            </h2>
+
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fc13d83e5491b441bb7c163822bdf49cf?format=webp&width=800'); height: 120px; margin-bottom: 1rem; border-radius: 10px;"></div>
+                    <div class="game-icon">🧩</div>
+                    <h3 class="game-title">Memory Palace</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Advanced spatial memory training using visualization techniques
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 67%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 67%</p>
+                    <button class="btn btn-primary" onclick="startGame('memory')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-icon">🎯</div>
+                    <h3 class="game-title">Focus Master</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Enhance attention and concentration through targeted exercises
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 84%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 84%</p>
+                    <button class="btn btn-primary" onclick="startGame('attention')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-icon">⚡</div>
+                    <h3 class="game-title">Quick Response</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Improve reaction time and processing speed
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 56%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 56%</p>
+                    <button class="btn btn-primary" onclick="startGame('reaction')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fd4ef5b8ec26641669e2e9ec530ea14ed?format=webp&width=800'); height: 120px; margin-bottom: 1rem; border-radius: 10px;"></div>
+                    <div class="game-icon">🧠</div>
+                    <h3 class="game-title">Logic Builder</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Pattern recognition and logical reasoning challenges
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 78%</p>
+                    <button class="btn btn-primary" onclick="startGame('logic')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-icon">🎮</div>
+                    <h3 class="game-title">Executive Control</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Multitasking and cognitive flexibility training
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 45%</p>
+                    <button class="btn btn-primary" onclick="startGame('executive')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F62b0285fcbc145a082df345f954b1e90?format=webp&width=800'); height: 120px; margin-bottom: 1rem; border-radius: 10px;"></div>
+                    <div class="game-icon">💡</div>
+                    <h3 class="game-title">Working Memory</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        N-back tasks and working memory enhancement
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 62%</p>
+                    <button class="btn btn-primary" onclick="startGame('working-memory')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F8b60cf430e3340bca4d8b37a2daba5cd?format=webp&width=800'); height: 120px; margin-bottom: 1rem; border-radius: 10px;"></div>
+                    <div class="game-icon">🧺</div>
+                    <h3 class="game-title">Memory Enhancement</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Advanced memory enhancement techniques and brain training
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 73%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 73%</p>
+                    <button class="btn btn-primary" onclick="startGame('memory-enhancement')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+
+                <div class="game-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F2cb18b28bf5345578a5d4cd338bb06d7?format=webp&width=800'); height: 120px; margin-bottom: 1rem; border-radius: 10px;"></div>
+                    <div class="game-icon">⚡</div>
+                    <h3 class="game-title">Cognitive Boost</h3>
+                    <p style="color: var(--text-light); opacity: 0.8; margin-bottom: 1rem;">
+                        Comprehensive cognitive enhancement and brain optimization
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 58%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress: 58%</p>
+                    <button class="btn btn-primary" onclick="startGame('cognitive-boost')" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i>
+                        Start Training
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 3rem;">
+                <h3 style="color: var(--text-white); margin-bottom: 2rem;">🏆 Training Achievements</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center; padding: 1rem; background: var(--glass-bg); border-radius: 10px;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🥇</div>
+                        <h4 style="color: var(--text-white);">Memory Master</h4>
+                        <p style="opacity: 0.8;">Complete 100 memory challenges</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: var(--glass-bg); border-radius: 10px;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                        <h4 style="color: var(--text-white);">Focus Champion</h4>
+                        <p style="opacity: 0.8;">Maintain focus for 30+ minutes</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: var(--glass-bg); border-radius: 10px;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                        <h4 style="color: var(--text-white);">Speed Demon</h4>
+                        <p style="opacity: 0.8;">React under 200ms consistently</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meditation Page -->
+        <div class="page" id="meditation">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--text-white);">
+                🧘 Mindfulness & Meditation
+            </h2>
+
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F7dd101c765a64885b4642d332ac512cd?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Mental Wellness</h3>
+                        <p class="activity-description">Comprehensive mental health meditation sessions for overall cognitive wellbeing.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('mental')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Ff297489dfc3141809f63c385c5bd7fd9?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Mindful Living</h3>
+                        <p class="activity-description">Daily mindfulness practices for improved focus and emotional balance.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('mindful')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F5d94f4721fb24f75a179b7d27e96eab2?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Physical Wellness</h3>
+                        <p class="activity-description">Body-mind connection exercises for holistic health and vitality.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('physical')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F96054c407b9143bfac993f547f0cb661?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Wellness Journey</h3>
+                        <p class="activity-description">Guided meditation for personal growth and cognitive enhancement.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('journey')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F1ef1ac0813784bca90780f9a46112737?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Serenity Garden</h3>
+                        <p class="activity-description">Nature-inspired meditation in a peaceful garden setting for deep relaxation.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('garden')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Ffb0148fe814c4758a7d81a481cbc1173?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Mindful Meditation</h3>
+                        <p class="activity-description">Traditional meditation techniques for enhanced mental clarity and focus.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('mindful-traditional')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F80528f627d014482bb5341f1bf7e982f?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Advanced Mindfulness</h3>
+                        <p class="activity-description">Advanced breathing exercises for anxiety reduction and cognitive enhancement.</p>
+                        <button class="btn btn-primary" onclick="startMeditation('advanced')">
+                            <i class="fas fa-play"></i>
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="glass-card">
+                    <h3 style="color: var(--text-white); margin-bottom: 2rem;">⏰ Focus Timer</h3>
+                    <div class="timer-container">
+                        <div class="timer-circle">
+                            <span id="focusTimer">25:00</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="startFocusTimer()">
+                            <i class="fas fa-play"></i>
+                            Start Focus Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">📊 Meditation Progress</h3>
+                    <canvas id="meditationChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 2rem;">
+                <h3 style="color: var(--text-white); margin-bottom: 2rem;">🎵 Ambient Sounds</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button class="btn btn-outline" onclick="playSound('rain')">
+                        <i class="fas fa-cloud-rain"></i>
+                        Rain Sounds
+                    </button>
+                    <button class="btn btn-outline" onclick="playSound('ocean')">
+                        <i class="fas fa-water"></i>
+                        Ocean Waves
+                    </button>
+                    <button class="btn btn-outline" onclick="playSound('forest')">
+                        <i class="fas fa-tree"></i>
+                        Forest Ambience
+                    </button>
+                    <button class="btn btn-outline" onclick="playSound('birds')">
+                        <i class="fas fa-dove"></i>
+                        Bird Songs
+                    </button>
+                </div>
+                <div id="soundControls" style="display: none; text-align: center; margin-top: 2rem;">
+                    <p>🎵 Playing: <span id="currentSound">None</span></p>
+                    <button class="btn btn-accent" onclick="stopSound()" style="margin-top: 1rem;">
+                        <i class="fas fa-stop"></i>
+                        Stop Sound
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Page -->
+        <div class="page" id="research">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--text-white);">
+                🔬 Neuroscience Research
+            </h2>
+
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F8563b81f36cd4c31b7770e311e53e845?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Advanced Scientific Lab</h3>
+                        <p class="activity-description">State-of-the-art laboratories for cutting-edge neuroscience research and brain studies.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('advanced-lab')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F343ab474f5e44c65ac8b60a1f18698c6?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Brain Research Studies</h3>
+                        <p class="activity-description">Comprehensive brain research by leading scientists in cognitive neuroscience.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('brain-studies')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F10addaeda2aa47039e05a6a7b59682b9?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Memory Challenge Research</h3>
+                        <p class="activity-description">Innovative research on memory enhancement and cognitive training methodologies.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('memory-challenge')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F56ef1e60c50a41bfa6a08d380aad4f98?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Research Facility</h3>
+                        <p class="activity-description">Modern research facilities with advanced equipment for cognitive studies.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('research-facility')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F1705ab7020e3474f9b0712c02936201d?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Science Advancement</h3>
+                        <p class="activity-description">Breakthrough research in scientific advancement of cognitive technologies.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('science-advancement')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F691129ecb0c34ab9b74552202bc8ee81?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Advanced Research Lab</h3>
+                        <p class="activity-description">High-tech research laboratory for neurological and cognitive investigations.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('advanced-research')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F76a1a0482fa54415b9c811c4efe79b3c?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Medical Research Team</h3>
+                        <p class="activity-description">Collaborative research with leading doctors and scientists in neurocognitive health.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('medical-team')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F4a081ca0657f4a668b85667c14c43779?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Quantum Neuroscience Lab</h3>
+                        <p class="activity-description">Revolutionary quantum technology applications in neuroscience research.</p>
+                        <button class="btn btn-primary" onclick="viewResearch('quantum-lab')">
+                            <i class="fas fa-microscope"></i>
+                            View Research
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 3rem;">
+                <h3 style="color: var(--text-white); margin-bottom: 2rem;">📊 Research Metrics</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;">127</div>
+                        <div class="stat-label">Active Studies</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;">5,432</div>
+                        <div class="stat-label">Participants</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;">89%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="stat-number" style="font-size: 2rem;">34</div>
+                        <div class="stat-label">Publications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consultation Page -->
+        <div class="page" id="consultation">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--text-white);">
+                👩‍⚕️ Expert Consultation
+            </h2>
+
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F1a028164b1bc4199adf6f7768a677c7c?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Dr. Sarah Chen</h3>
+                        <p class="activity-description">Senior Neurologist specializing in cognitive assessment and brain health optimization.</p>
+                        <button class="btn btn-primary" onclick="bookConsultation('dr-chen')">
+                            <i class="fas fa-calendar"></i>
+                            Book Consultation
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fe218411d349941c0b33e4607cd9c18c3?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Dr. Emily Rodriguez</h3>
+                        <p class="activity-description">Cognitive therapist with expertise in memory enhancement and attention training.</p>
+                        <button class="btn btn-primary" onclick="bookConsultation('dr-rodriguez')">
+                            <i class="fas fa-calendar"></i>
+                            Book Consultation
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F21ad2a3c66d44cae95b89b8f806bdd16?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Dr. Michael Thompson</h3>
+                        <p class="activity-description">Neuroscience researcher specializing in cognitive enhancement and brain training protocols.</p>
+                        <button class="btn btn-primary" onclick="bookConsultation('dr-thompson')">
+                            <i class="fas fa-calendar"></i>
+                            Book Consultation
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Ff67bb279aa83490d81dde57756a40856?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Dr. Lisa Park</h3>
+                        <p class="activity-description">Clinical psychologist with expertise in cognitive behavioral therapy and mental wellness.</p>
+                        <button class="btn btn-primary" onclick="bookConsultation('dr-park')">
+                            <i class="fas fa-calendar"></i>
+                            Book Consultation
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fb00dd0bb8fa7460097ccc6ab590f8c41?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">NeuroMind Pro Center</h3>
+                        <p class="activity-description">State-of-the-art facility for comprehensive cognitive health assessment and treatment.</p>
+                        <button class="btn btn-primary" onclick="scheduleVisit()">
+                            <i class="fas fa-hospital"></i>
+                            Schedule Visit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2Fb206a5949e7841b997bffd934586e09e?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Evening Therapy Sessions</h3>
+                        <p class="activity-description">Personalized cognitive therapy sessions in a comfortable, supportive environment.</p>
+                        <button class="btn btn-primary" onclick="bookEvening()">
+                            <i class="fas fa-moon"></i>
+                            Book Evening Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F533a18efd8a74ca0b4f009db41385095?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Research Consultation</h3>
+                        <p class="activity-description">Advanced consultation with research teams for cutting-edge cognitive enhancement.</p>
+                        <button class="btn btn-primary" onclick="bookResearchConsult()">
+                            <i class="fas fa-microscope"></i>
+                            Book Research Session
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-image" style="background-image: url('https://cdn.builder.io/api/v1/image/assets%2F2cd11caf4c1b4c3bb3084cd790d2c201%2F091eacd97ac34c3aa636ed113b3d0606?format=webp&width=800');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Group Therapy</h3>
+                        <p class="activity-description">Collaborative cognitive therapy sessions with other patients for enhanced learning.</p>
+                        <button class="btn btn-primary" onclick="joinGroupTherapy()">
+                            <i class="fas fa-users"></i>
+                            Join Group Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 3rem;">
+                <h3 style="color: var(--text-white); margin-bottom: 2rem;">📅 Upcoming Appointments</h3>
+                <div style="space-y: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--glass-bg); border-radius: 10px; margin-bottom: 1rem;">
+                        <div>
+                            <h4 style="color: var(--text-white);">Cognitive Assessment</h4>
+                            <p style="opacity: 0.8;">Dr. Sarah Chen • March 15, 2024 • 2:00 PM</p>
+                        </div>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-video"></i>
+                            Join Call
+                        </button>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--glass-bg); border-radius: 10px; margin-bottom: 1rem;">
+                        <div>
+                            <h4 style="color: var(--text-white);">Memory Training Session</h4>
+                            <p style="opacity: 0.8;">Dr. Emily Rodriguez • March 18, 2024 • 10:00 AM</p>
+                        </div>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-calendar"></i>
+                            Reschedule
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('gameModal')">&times;</button>
+            <h3 id="gameTitle" style="color: var(--text-white); margin-bottom: 2rem;">Game Session</h3>
+            <div id="gameContent">
+                <!-- Game content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="font-size: 1.5rem;">🧠</div>
+            <div>
+                <div style="font-weight: 600;">NeuroMind Pro</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;" id="notificationMessage">System ready</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Management
+        class DataManager {
+            constructor() {
+                this.storageKey = 'neuromind_data';
+                this.initializeData();
+            }
+
+            initializeData() {
+                if (!localStorage.getItem(this.storageKey)) {
+                    const initialData = {
+                        user: {
+                    name: 'Alex Johnson',
+                    role: 'Patient',
+                    cognitiveScore: 94,
+                    focusLevel: 87,
+                    memoryScore: 91,
+                    reactionTime: 245
+                },
+                        stats: {
+                            activeSessions: 2847,
+                            researchStudies: 156,
+                            patientProgress: 87
+                        },
+                        games: {
+                memory: { progress: 67, lastPlayed: new Date() },
+                attention: { progress: 84, lastPlayed: new Date() },
+                reaction: { progress: 56, lastPlayed: new Date() },
+                logic: { progress: 78, lastPlayed: new Date() },
+                executive: { progress: 45, lastPlayed: new Date() },
+                workingMemory: { progress: 62, lastPlayed: new Date() },
+                'memory-enhancement': { progress: 73, lastPlayed: new Date() },
+                'cognitive-boost': { progress: 58, lastPlayed: new Date() }
+            },
+                        meditation: {
+                            totalSessions: 23,
+                            totalMinutes: 456,
+                            streakDays: 7
+                        }
+                    };
+                    this.saveData(initialData);
+                }
+                this.updateUI();
+            }
+
+            getData() {
+                return JSON.parse(localStorage.getItem(this.storageKey)) || {};
+            }
+
+            saveData(data) {
+                localStorage.setItem(this.storageKey, JSON.stringify(data));
+            }
+
+            updateUI() {
+                const data = this.getData();
+                
+                // Update stats
+                if (document.getElementById('activeSessions')) {
+                    document.getElementById('activeSessions').textContent = data.stats.activeSessions.toLocaleString();
+                }
+                if (document.getElementById('researchStudies')) {
+                    document.getElementById('researchStudies').textContent = data.stats.researchStudies;
+                }
+                if (document.getElementById('cognitiveScore')) {
+                    document.getElementById('cognitiveScore').textContent = data.user.cognitiveScore;
+                }
+                if (document.getElementById('patientProgress')) {
+                    document.getElementById('patientProgress').textContent = data.stats.patientProgress + '%';
+                }
+
+                // Update cognitive metrics
+                if (document.getElementById('focusLevel')) {
+                    document.getElementById('focusLevel').textContent = data.user.focusLevel;
+                }
+                if (document.getElementById('memoryScore')) {
+                    document.getElementById('memoryScore').textContent = data.user.memoryScore;
+                }
+                if (document.getElementById('reactionTime')) {
+                    document.getElementById('reactionTime').textContent = data.user.reactionTime;
+                }
+                if (document.getElementById('cognitiveLoad')) {
+                    document.getElementById('cognitiveLoad').textContent = Math.floor(Math.random() * 20) + 70;
+                }
+            }
+
+            updateGameProgress(gameType, progress) {
+                const data = this.getData();
+                if (data.games && data.games[gameType]) {
+                    data.games[gameType].progress = Math.min(100, progress + 5);
+                    data.games[gameType].lastPlayed = new Date();
+                    this.saveData(data);
+                    this.updateUI();
+                } else {
+                    console.warn(`Game type '${gameType}' not found in games data`);
+                }
+            }
+        }
+
+        // Chart Management
+        class ChartManager {
+            constructor() {
+                this.charts = {};
+                this.initializeCharts();
+            }
+
+            initializeCharts() {
+                this.createPerformanceChart();
+                this.createMeditationChart();
+            }
+
+            createPerformanceChart() {
+                const ctx = document.getElementById('performanceChart');
+                if (!ctx) return;
+
+                this.charts.performance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Cognitive Performance',
+                            data: [85, 89, 92, 88, 95, 97, 94],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#2563eb',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#ffffff' }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#ffffff' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            createMeditationChart() {
+                const ctx = document.getElementById('meditationChart');
+                if (!ctx) return;
+
+                this.charts.meditation = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Focus', 'Calm', 'Awareness', 'Clarity', 'Balance'],
+                        datasets: [{
+                            label: 'Meditation Progress',
+                            data: [85, 92, 78, 88, 90],
+                            borderColor: '#7c3aed',
+                            backgroundColor: 'rgba(124, 58, 237, 0.2)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#7c3aed',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                pointLabels: { color: '#ffffff' },
+                                ticks: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize systems
+        let dataManager, chartManager;
+        let focusTimer = null;
+        let focusTimeLeft = 25 * 60; // 25 minutes
+        let currentSound = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 NeuroMind Pro Loading...');
+            
+            dataManager = new DataManager();
+            chartManager = new ChartManager();
+            
+            // Real-time updates
+            setInterval(updateRealTimeMetrics, 5000);
+            
+            // Welcome notification
+            setTimeout(() => {
+                showNotification('Welcome to NeuroMind Pro! All systems are ready.');
+            }, 2000);
+        });
+
+        // Navigation
+        function showPage(pageId) {
+            console.log('Navigating to:', pageId);
+
+            // Update navigation
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+
+            const targetBtn = document.querySelector(`.nav-button[data-page="${pageId}"]`);
+            const targetPage = document.getElementById(pageId);
+
+            if (targetBtn && targetPage) {
+                targetBtn.classList.add('active');
+                targetPage.classList.add('active');
+                showNotification(`Switched to ${pageId.charAt(0).toUpperCase() + pageId.slice(1)} section`);
+            }
+        }
+
+        // Assessment
+        function startAssessment() {
+            showNotification('Starting comprehensive cognitive assessment...');
+
+            setTimeout(() => {
+                showNotification('Assessment complete! Results updated in dashboard.');
+                // Update cognitive score instead of non-existent assessment game
+                const data = dataManager.getData();
+                data.user.cognitiveScore = Math.min(100, data.user.cognitiveScore + 1);
+                dataManager.saveData(data);
+                dataManager.updateUI();
+            }, 3000);
+        }
+
+        // Game Functions
+        function startGame(gameType) {
+            const gameNames = {
+                memory: 'Memory Palace Training',
+                attention: 'Focus Master Challenge',
+                reaction: 'Quick Response Training',
+                logic: 'Logic Builder Exercise',
+                executive: 'Executive Control Task',
+                'working-memory': 'Working Memory Enhancement',
+                'memory-enhancement': 'Memory Enhancement Training',
+                'cognitive-boost': 'Cognitive Boost Challenge'
+            };
+
+            showNotification(`Starting ${gameNames[gameType]}...`);
+            
+            const modal = document.getElementById('gameModal');
+            const title = document.getElementById('gameTitle');
+            const content = document.getElementById('gameContent');
+            
+            title.textContent = gameNames[gameType];
+            content.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 2rem;">🎮</div>
+                    <h3 style="color: var(--text-white); margin-bottom: 1rem;">Game Session Active</h3>
+                    <p style="margin-bottom: 2rem; opacity: 0.8;">Training in progress... Focus on the exercises.</p>
+                    <div style="background: var(--glass-bg); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="gameProgress" style="width: 0%;"></div>
+                        </div>
+                        <p style="margin-top: 1rem;">Progress: <span id="gameProgressText">0%</span></p>
+                    </div>
+                    <button class="btn btn-accent" onclick="completeGame('${gameType}')">
+                        <i class="fas fa-check"></i>
+                        Complete Session
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            // Simulate game progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                }
+                document.getElementById('gameProgress').style.width = progress + '%';
+                document.getElementById('gameProgressText').textContent = Math.round(progress) + '%';
+            }, 500);
+        }
+
+        function completeGame(gameType) {
+            dataManager.updateGameProgress(gameType, 0);
+            closeModal('gameModal');
+            showNotification('Training session completed! Progress updated.');
+        }
+
+        // Meditation Functions
+        function startMeditation(type) {
+            const meditationTypes = {
+                mental: 'Mental Wellness Meditation',
+                mindful: 'Mindful Living Session',
+                physical: 'Physical Wellness Session',
+                journey: 'Wellness Journey Meditation',
+                garden: 'Serenity Garden Session',
+                'mindful-traditional': 'Mindful Traditional Meditation',
+                advanced: 'Advanced Mindfulness Session',
+                beach: 'Beach Meditation',
+                yoga: 'Yoga Flow',
+                breathing: 'Breathing Techniques'
+            };
+
+            showNotification(`Starting ${meditationTypes[type]} session...`);
+
+            setTimeout(() => {
+                showNotification('Meditation session in progress. Focus on your breathing and achieve mental clarity.');
+                // Update meditation stats
+                const data = dataManager.getData();
+                data.meditation.totalSessions += 1;
+                data.meditation.totalMinutes += Math.floor(Math.random() * 20) + 10;
+                dataManager.saveData(data);
+            }, 2000);
+        }
+
+        // Focus Timer
+        function startFocusTimer() {
+            if (focusTimer) {
+                clearInterval(focusTimer);
+                focusTimer = null;
+                document.getElementById('focusTimer').textContent = '25:00';
+                showNotification('Focus session paused');
+                return;
+            }
+
+            showNotification('Focus session started. Stay concentrated!');
+            
+            focusTimer = setInterval(() => {
+                focusTimeLeft--;
+                const minutes = Math.floor(focusTimeLeft / 60);
+                const seconds = focusTimeLeft % 60;
+                document.getElementById('focusTimer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                if (focusTimeLeft <= 0) {
+                    clearInterval(focusTimer);
+                    focusTimer = null;
+                    focusTimeLeft = 25 * 60;
+                    showNotification('Focus session complete! Great work!');
+                }
+            }, 1000);
+        }
+
+        // Sound Functions
+        function playSound(soundType) {
+            const sounds = {
+                rain: 'Rain Sounds',
+                ocean: 'Ocean Waves',
+                forest: 'Forest Ambience',
+                birds: 'Bird Songs'
+            };
+            
+            currentSound = sounds[soundType];
+            document.getElementById('currentSound').textContent = currentSound;
+            document.getElementById('soundControls').style.display = 'block';
+            showNotification(`Playing: ${currentSound}`);
+        }
+
+        function stopSound() {
+            currentSound = null;
+            document.getElementById('soundControls').style.display = 'none';
+            showNotification('Sound stopped');
+        }
+
+        // Research Functions
+        function viewResearch(researchType) {
+            const researchTypes = {
+                'advanced-lab': 'Advanced Scientific Laboratory Research',
+                'brain-studies': 'Brain Research Studies by Scientists',
+                'memory-challenge': 'Memory Challenge Research',
+                'research-facility': 'Research Facility Studies',
+                'science-advancement': 'Science Advancement Research',
+                'advanced-research': 'Advanced Research Laboratory',
+                'medical-team': 'Medical Research Team Studies',
+                'quantum-lab': 'Quantum Neuroscience Laboratory',
+                'neural-lab': 'Advanced Neural Laboratory Research',
+                'enhancement': 'Brain Enhancement Studies',
+                'sleep-memory': 'Sleep & Memory Research',
+                'memory-activities': 'Memory Enhancement Activities'
+            };
+
+            showNotification(`Opening ${researchTypes[researchType]}...`);
+
+            setTimeout(() => {
+                showNotification('Research data loaded. Analyzing cognitive patterns and findings.');
+            }, 2000);
+        }
+
+        // Consultation Functions
+        function bookConsultation(doctor) {
+            const doctors = {
+                'dr-chen': 'Dr. Sarah Chen',
+                'dr-rodriguez': 'Dr. Emily Rodriguez',
+                'dr-thompson': 'Dr. Michael Thompson',
+                'dr-park': 'Dr. Lisa Park'
+            };
+
+            showNotification(`Booking consultation with ${doctors[doctor]}...`);
+
+            setTimeout(() => {
+                showNotification(`Consultation with ${doctors[doctor]} scheduled successfully!`);
+            }, 2000);
+        }
+
+        function bookResearchConsult() {
+            showNotification('Booking research consultation session...');
+
+            setTimeout(() => {
+                showNotification('Research consultation scheduled with our expert team!');
+            }, 2000);
+        }
+
+        function joinGroupTherapy() {
+            showNotification('Joining group therapy session...');
+
+            setTimeout(() => {
+                showNotification('Successfully joined group therapy session!');
+            }, 2000);
+        }
+
+        function scheduleVisit() {
+            showNotification('Scheduling visit to NeuroMind Pro Center...');
+        }
+
+        function bookEvening() {
+            showNotification('Booking evening therapy session...');
+        }
+
+        // Dashboard Functions
+        function runFullScan() {
+            showNotification('Starting comprehensive cognitive scan...');
+
+            setTimeout(() => {
+                showNotification('Cognitive scan in progress... Analyzing brain patterns.');
+
+                setTimeout(() => {
+                    showNotification('Full cognitive scan complete! Results updated.');
+                    updateRealTimeMetrics();
+                }, 4000);
+            }, 2000);
+        }
+
+        function startBrainScan() {
+            showNotification('Initializing quantum brain scan protocol...');
+
+            setTimeout(() => {
+                showNotification('Quantum scan in progress... Analyzing neural pathways.');
+
+                // Update gamma waves during scan
+                if (document.getElementById('gammaWaves')) {
+                    const newGamma = Math.max(35, Math.min(50, 42.3 + (Math.random() - 0.5) * 8));
+                    document.getElementById('gammaWaves').textContent = newGamma.toFixed(1);
+                }
+
+                setTimeout(() => {
+                    showNotification('Quantum brain scan complete! Advanced neural data collected.');
+                    updateRealTimeMetrics();
+                }, 3000);
+            }, 2000);
+        }
+
+        // Utility Functions
+        function updateRealTimeMetrics() {
+            // Simulate real-time data updates
+            const data = dataManager.getData();
+            
+            // Small random variations
+            const alphaVariation = (Math.random() - 0.5) * 2;
+            const betaVariation = (Math.random() - 0.5) * 3;
+            
+            const newAlpha = Math.max(8, Math.min(15, 12.4 + alphaVariation));
+            const newBeta = Math.max(13, Math.min(30, 18.7 + betaVariation));
+            
+            if (document.getElementById('alphaWaves')) {
+                document.getElementById('alphaWaves').textContent = newAlpha.toFixed(1);
+            }
+            if (document.getElementById('betaWaves')) {
+                document.getElementById('betaWaves').textContent = newBeta.toFixed(1);
+            }
+
+            // Update gamma waves if available
+            if (document.getElementById('gammaWaves')) {
+                const gammaVariation = (Math.random() - 0.5) * 5;
+                const newGamma = Math.max(35, Math.min(50, 42.3 + gammaVariation));
+                document.getElementById('gammaWaves').textContent = newGamma.toFixed(1);
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notificationMessage');
+            
+            messageEl.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Global function assignments
+        window.showPage = showPage;
+        window.startAssessment = startAssessment;
+        window.startGame = startGame;
+        window.completeGame = completeGame;
+        window.startMeditation = startMeditation;
+        window.startFocusTimer = startFocusTimer;
+        window.playSound = playSound;
+        window.stopSound = stopSound;
+        window.viewResearch = viewResearch;
+        window.bookConsultation = bookConsultation;
+        window.scheduleVisit = scheduleVisit;
+        window.bookEvening = bookEvening;
+        window.bookResearchConsult = bookResearchConsult;
+        window.joinGroupTherapy = joinGroupTherapy;
+        window.runFullScan = runFullScan;
+        window.startBrainScan = startBrainScan;
+        window.closeModal = closeModal;
+    </script>
+</body>
+</html>
