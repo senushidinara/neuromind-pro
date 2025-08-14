@@ -1,58 +1,64 @@
-# NuroX – by NeuroLogicX
+# NeuroMind Pro – Advanced Neuroscience Research Platform
 
-NuroX is a neuroscience-inspired cognitive health web application designed to help users monitor, train, and improve their mental performance through science-backed methods.NuroX is built upon neuroscience research conducted by the project lead (Senushi Dinara0, ensuring the app’s design and features are rooted in real scientific understanding of brain health.
-
----
-
-## 🚀 Live Demo
-[Try NuroX live here](https://689b6b31c619e05e62706f21--transcendent-shortbread-0e006a.netlify.app/)
+## 📌 Elevator Pitch
+A cutting-edge neuroscience research platform that integrates advanced cognitive experiments, EEG brainwave analytics, and interactive training tools to study and enhance memory, focus, and emotional well-being.
 
 ---
 
-## 📌 Problem Statement
-Millions of people worldwide struggle with memory decline, stress, and reduced focus.  
-Current tools are often generic or entertainment-focused, lacking scientific grounding — leaving users without meaningful, actionable insights into their cognitive health.
+## 🧠 About the Project
+NeuroMind Pro is designed to bridge the gap between neuroscience research and practical cognitive enhancement.  
+It enables both researchers and learners to **measure, analyze, and improve brain performance** through an all-in-one platform combining:
+
+- **Real-time EEG brainwave monitoring**
+- **Memory and focus training modules**
+- **Mood and cognitive clarity tracking**
+- **Interactive analytics and visualizations**
+- **Support for both beginner learners and advanced researchers**
+
+This platform is ideal for:
+- Students curious about brain science
+- Researchers conducting behavioral and EEG experiments
+- Individuals aiming to boost cognitive health
 
 ---
 
-## 💡 Solution
-NuroX bridges cutting-edge neuroscience research with accessible, interactive cognitive training tools.  
-It enables students, professionals, and older adults to monitor, maintain, and improve mental function using research-based methods.
+## 🎯 Key Features
+- **EEG Brainwave Analytics:** Import and analyze raw EEG data (including open-source datasets like Sleep-EDF).
+- **Cognitive Experiments:** Test memory, attention, and emotional processing through guided tasks.
+- **Mood & Sleep Tracking:** Log daily experiences through natural language input, automatically analyzed into structured data.
+- **AI-Driven Insights:** Get personalized summaries, cognitive performance trends, and brain health suggestions.
+- **Multi-device Support:** Access via desktop, tablet, or mobile.
 
 ---
 
-## ✨ Key Features
-- 🧠 Reaction Time Tests — Measure focus and attentional speed.
-- 🗂 Memory & Spatial Puzzles — Challenge recall, reasoning, and problem-solving.
-- 🌊 EEG Brainwave Simulations — Visualize brain activity patterns.
-- 🧘 Guided Meditation Videos — Reduce stress and improve mental clarity.
-- 📊 Progress Tracking — Interactive charts for cognitive improvement tracking.
-- 🔒 Local Data Storage — User privacy prioritized.
+## 🛠 Technology Stack
+- **Frontend:** React.js / Next.js
+- **Backend:** Node.js, Express
+- **AI Processing:** OpenAI GPT API for natural language analysis
+- **Data Visualization:** D3.js / Chart.js
+- **Database:** MongoDB / Firebase
+- **EEG Analysis:** Python (MNE, YASA), Jupyter integration
 
 ---
 
-## 🎯 Intended Users
-- Students — Improve focus and memory for learning.
-- Professionals — Maintain productivity and reduce stress.
-- Elderly — Monitor and slow cognitive decline.
+## 🚀 Getting Started
 
----
+### Prerequisites
+- Node.js (v16+)
+- Python (v3.8+)
+- MongoDB or Firebase setup
+- Access to EEG data (optional but recommended)
 
-## 🛠 Built With
-- **Languages:** JavaScript, HTML5, CSS3
-- **Frameworks/Libraries:** React, Chart.js
-- **Hosting:** Netlify
-- **Storage:** Browser LocalStorage API for privacy
-- **Tools:** VS Code, Git/GitHub
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/neuromind-pro.git
 
----
-## Acknowledgments
+# Navigate to project folder
+cd neuromind-pro
 
-- Inspired by original neuroscience research conducted by the project lead, focused on advancing cognitive health.  
-- Thanks to all open-source libraries and tools used.
+# Install dependencies
+npm install
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE] file for details.
-Copyright (c) 2025 Senushi Dinara
-
+# Start development server
+npm run dev
